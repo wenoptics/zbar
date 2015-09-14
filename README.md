@@ -14,7 +14,8 @@ Patch taken from [http://launchpadlibrarian.net/134768014/zbar_0.10+doc-7build3_
 
 Feature Added(wenop)
 ====================
-[Patches `processor.c`](https:///) to make it possible to set pre-scale value for the camera in Python, as with '--prescale'
+[Patches `processor.c`](https://github.com/wenoptics/zbar/blob/1ae421974cafafd8b427788948215fbf8bddfc8b/processor.c) to make it possible to set pre-scale value for the camera in Python, as with `--prescale`
 arguments when execute 'zbarcam'.
+
 I set pre-scale to a relatively low resolution to make zbarcam process faster on Raspiberry Pi.
 See the example.
