@@ -202,6 +202,33 @@ processor_parse_config (zbarProcessor *self,
     Py_RETURN_NONE;
 }
 
+/* wenop-add 
+ *
+ *    make python possible to set prescale as what can be done by --prescale 
+ *
+ */
+static PyObject*
+set_prescale (zbarProcessor *self,
+                        PyObject *args,
+                        PyObject *kwds)
+{
+    long int ps_width = 320;
+    long int ps_height = 240;
+    static char *kwlist[] = { "width", "height", NULL };
+    if(!PyArg_ParseTupleAndKeywords(args, kwds, "ll", kwlist, 
+                                    &ps_width, &ps_height))
+        return(NULL);
+
+    zbar_processor_request_size(self->zproc, ps_width, ps_height);
+    /*
+    if(zbar_processor_request_size(self->zproc, ps_width, ps_height)) {
+        PyErr_SetString(PyExc_ValueError, "invalid prescale setting");        
+        return(NULL);
+    }
+    */
+    Py_RETURN_NONE;
+}
+
 static int
 object_to_timeout (PyObject *obj,
                    int *val)
@@ -355,6 +382,8 @@ static PyMethodDef processor_methods[] = {
       METH_VARARGS | METH_KEYWORDS, },
     { "set_data_handler", (PyCFunction)processor_set_data_handler,
       METH_VARARGS | METH_KEYWORDS, },
+    { "set_prescale",     (PyCFunction)set_prescale,
+      METH_VARARGS | METH_KEYWORDS, },      
     { NULL, },
 };
 
